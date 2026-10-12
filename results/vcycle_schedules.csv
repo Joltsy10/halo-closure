@@ -1,0 +1,7 @@
+hierarchy,strategy,n_partitions,schedule,pct_min,pct_median,pct_max
+6/5,latlon,32,one pass per level,3.8,7.0,7.1
+6/5,latlon,32,1H 11L 1H,13.6,19.1,19.2
+6/5,latlon,32,3H 6L 3H 6L 3H,21.2,27.6,28.0
+6/5,metis,32,one pass per level,5.2,5.5,5.9
+6/5,metis,32,1H 11L 1H,15.3,16.6,17.9
+6/5,metis,32,3H 6L 3H 6L 3H,23.2,24.9,26.5

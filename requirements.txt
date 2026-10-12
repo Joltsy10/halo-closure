@@ -1,0 +1,11 @@
+# The environment that reproduced every CSV in results/ exactly (Python 3.11.9).
+# METIS partitions and corner-vertex face ties depend on library builds, so
+# other versions may move individual cells; run scripts/regenerate.py --check.
+# torch-sparse needs the PyG wheel index:
+#   pip install torch-sparse -f https://data.pyg.org/whl/torch-2.5.1+cpu.html
+torch==2.5.1
+torch-sparse==0.6.18
+numpy==2.4.6
+scipy==1.17.1
+trimesh==4.12.2
+matplotlib==3.11.0

@@ -1,0 +1,37 @@
+hierarchy,coarsest_level,coarsest_spacing_deg,strategy,n_partitions,architecture,published_depth,pct_min,pct_median,pct_max
+6/5,5,2.164,latlon,16,merged,16,21.1,32.1,32.8
+6/5,5,2.164,latlon,16,sequential,2,6.4,13.0,13.4
+6/5,5,2.164,latlon,16,unet,1 traversal,6.2,12.6,12.7
+6/5,5,2.164,metis,16,merged,16,25.4,27.2,28.1
+6/5,5,2.164,metis,16,sequential,2,9.5,10.0,10.4
+6/5,5,2.164,metis,16,unet,1 traversal,9.0,9.5,9.7
+6/5/4,4,4.327,latlon,16,merged,16,44.6,57.7,59.4
+6/5/4,4,4.327,latlon,16,sequential,2,10.6,18.9,19.2
+6/5/4,4,4.327,latlon,16,unet,1 traversal,11.8,20.4,20.4
+6/5/4,4,4.327,metis,16,merged,16,49.6,51.8,55.2
+6/5/4,4,4.327,metis,16,sequential,2,13.9,14.8,16.5
+6/5/4,4,4.327,metis,16,unet,1 traversal,15.2,15.6,17.0
+6/5/4/3,3,8.654,latlon,16,merged,16,88.2,97.2,98.2
+6/5/4/3,3,8.654,latlon,16,sequential,2,19.3,29.3,29.4
+6/5/4/3,3,8.654,latlon,16,unet,1 traversal,25.2,36.9,36.9
+6/5/4/3,3,8.654,metis,16,merged,16,92.4,94.2,95.9
+6/5/4/3,3,8.654,metis,16,sequential,2,23.1,25.9,26.9
+6/5/4/3,3,8.654,metis,16,unet,1 traversal,30.1,31.9,33.2
+6/5/4/3/2,2,17.31,latlon,16,merged,16,100.0,100.0,100.0
+6/5/4/3/2,2,17.31,latlon,16,sequential,2,40.3,53.4,53.6
+6/5/4/3/2,2,17.31,latlon,16,unet,1 traversal,59.9,73.7,74.2
+6/5/4/3/2,2,17.31,metis,16,merged,16,100.0,100.0,100.0
+6/5/4/3/2,2,17.31,metis,16,sequential,2,46.2,49.1,50.9
+6/5/4/3/2,2,17.31,metis,16,unet,1 traversal,64.2,67.6,70.1
+6/5/4/3/2/1,1,34.62,latlon,16,merged,16,100.0,100.0,100.0
+6/5/4/3/2/1,1,34.62,latlon,16,sequential,2,79.7,87.9,88.7
+6/5/4/3/2/1,1,34.62,latlon,16,unet,1 traversal,100.0,100.0,100.0
+6/5/4/3/2/1,1,34.62,metis,16,merged,16,100.0,100.0,100.0
+6/5/4/3/2/1,1,34.62,metis,16,sequential,2,83.2,86.6,88.8
+6/5/4/3/2/1,1,34.62,metis,16,unet,1 traversal,100.0,100.0,100.0
+6/5/4/3/2/1/0,0,63.43,latlon,16,merged,16,100.0,100.0,100.0
+6/5/4/3/2/1/0,0,63.43,latlon,16,sequential,2,96.9,97.2,97.2
+6/5/4/3/2/1/0,0,63.43,latlon,16,unet,1 traversal,100.0,100.0,100.0
+6/5/4/3/2/1/0,0,63.43,metis,16,merged,16,100.0,100.0,100.0
+6/5/4/3/2/1/0,0,63.43,metis,16,sequential,2,96.0,97.2,97.3
+6/5/4/3/2/1/0,0,63.43,metis,16,unet,1 traversal,100.0,100.0,100.0
