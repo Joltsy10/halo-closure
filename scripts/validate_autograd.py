@@ -39,7 +39,7 @@ sys.path.insert(0, str(ROOT))
 
 from halo_closure.graphs import build_hierarchy, grid_edges  # noqa: E402
 from halo_closure.operators import (  # noqa: E402
-    Operators, Rollout, iterate, one_pass_per_level,
+    Operators, Rollout, iterate, neural_lam_schedule, one_pass_per_level,
 )
 
 DTYPE = torch.float64
@@ -260,6 +260,14 @@ def main() -> None:
             g = h.offset[lv] + node
             truth = dependency(lambda: ScheduleNet(h, schedule), h.n, [g], inits=6)
             report(f"L{lv} node {node}", ops.vcycle(mask([g]), schedule), truth, results)
+
+    print("neural-lam Hi-LAM schedule (init up, down/up passes, read-out)")
+    for layers in (1, 2):
+        schedule = neural_lam_schedule(h.levels, layers)
+        for lv in (6, 4):
+            truth = dependency(lambda: ScheduleNet(h, schedule), h.n, [seed[lv]], inits=6)
+            report(f"L{lv} node {SEED_NODE}, {layers} layer(s)",
+                   ops.vcycle(mask([seed[lv]]), schedule), truth, results)
 
     print("training cone = inference cone (double backward, sweep)")
     for lv in (6, 4):

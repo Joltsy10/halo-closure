@@ -40,7 +40,8 @@ from halo_closure.graphs import (  # noqa: E402
     assign, assign_faces_with_grid, build_hierarchy, grid_edges,
 )
 from halo_closure.operators import (  # noqa: E402
-    Operators, Rollout, block_schedule, iterate, one_pass_per_level, saturate,
+    Operators, Rollout, block_schedule, iterate, neural_lam_schedule, one_pass_per_level,
+    saturate,
 )
 
 RESULTS = ROOT / "results"
@@ -358,6 +359,38 @@ def reconstruction_check():
     return header, rows
 
 
+def closure_neural_lam(max_layers: int = 60):
+    """neural-lam Hi-LAM / Graph-EFM schedule (the sweep arm of the follow-up
+    study): % of mesh one rank of 16 must hold at 1-4 processor layers, and
+    L_sat, min/median/max over partitions. Owned nodes at every level, as for
+    the other families."""
+    header = ["hierarchy", "strategy", "n_partitions", "metric", "value_min",
+              "value_median", "value_max"]
+    rows = []
+    n = 16
+    for levels in HIERARCHIES:
+        ops = ops_for(tuple(levels))
+        for strategy in ("latlon", "metis"):
+            a = assignment(tuple(levels), strategy, n)
+            owned = [a == pid for pid in range(n)]
+            for layers in (1, 2, 3, 4):
+                schedule = neural_lam_schedule(levels, layers)
+                v = [100.0 * ops.vcycle(o, schedule).mean() for o in owned]
+                rows.append([name(levels), strategy, n, f"closure_pct_L{layers}",
+                             round(min(v), 1), round(upper_median(v), 1), round(max(v), 1)])
+            lsat = []
+            for o in owned:
+                layers = 1
+                while not ops.vcycle(o, neural_lam_schedule(levels, layers)).all():
+                    layers += 1
+                    if layers > max_layers:
+                        raise RuntimeError("closure did not saturate")
+                lsat.append(layers)
+            rows.append([name(levels), strategy, n, "L_sat", min(lsat), upper_median(lsat),
+                         max(lsat)])
+    return header, rows
+
+
 def hierarchy_sizes():
     """Node and edge counts per hierarchy, for both node-set conventions."""
     header = ["hierarchy", "nominal_spacing_deg", "measured_spacing_deg", "mesh_nodes",
@@ -387,6 +420,7 @@ TABLES = {
     "vcycle_schedules": vcycle_schedules,
     "reconstruction_check": reconstruction_check,
     "hierarchy_sizes": hierarchy_sizes,
+    "closure_neural_lam": closure_neural_lam,
 }
 IGNORE_IN_CHECK = {"closure_sweep": {"seconds"}}
 

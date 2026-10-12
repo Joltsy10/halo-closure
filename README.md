@@ -73,6 +73,7 @@ point; they come from the pre-split draft and are not Paper A evidence.
 | `closure_growth.csv` | *premise*: closure size at every depth to saturation, geometric partition 0 | pre-split draft |
 | `closure_growth_tiers.csv` | *premise*: per-level growth, 6/5/4 sweep (41,040 nodes at L = 12) | companion Sec. 3 |
 | `rollout_closure.csv` | *premise*: grid nodes needed for R autoregressive steps without communication | demoted; not in either paper |
+| `closure_neural_lam.csv` | sweep closure under neural-lam's interleaved schedule (init up pass; per layer a down then an up pass; read-out down pass), lat/lon 16 partitions | companion paper's new setup; not in Paper A |
 
 The four premise files, and the `lsat_map` and `closure_growth*` figures, carry
 the companion paper's operating point and should stay out of anything released

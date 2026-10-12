@@ -156,6 +156,25 @@ def one_pass_per_level(levels: list[int]) -> list[tuple]:
     return down_leg + [("mp", levels[-1])] + up_leg
 
 
+def neural_lam_schedule(levels: list[int], n_layers: int) -> list[tuple]:
+    """neural-lam's Hi-LAM / Graph-EFM forward, as stages: an initial up pass
+    (each coarser level initialised from the one below), then per layer a down
+    pass and an up pass with a same-level step at every level inside each,
+    then a read-out down pass to the finest level. Inverted by
+    `Operators.vcycle`, which handles any stage list."""
+    pairs = list(zip(levels, levels[1:]))
+    stages = [("up", f, c) for f, c in pairs]
+    for _ in range(n_layers):
+        stages.append(("mp", levels[-1]))
+        for f, c in reversed(pairs):
+            stages += [("down", c, f), ("mp", f)]
+        stages.append(("mp", levels[0]))
+        for f, c in pairs:
+            stages += [("up", f, c), ("mp", c)]
+    stages += [("down", c, f) for f, c in reversed(pairs)]
+    return stages
+
+
 def block_schedule(fine: int, coarse: int, blocks: list[tuple[str, int]]) -> list[tuple]:
     """Two-level schedule in MS-MGN notation, e.g. [("H", 1), ("L", 11), ("H", 1)]."""
     out, at = [], "H"
